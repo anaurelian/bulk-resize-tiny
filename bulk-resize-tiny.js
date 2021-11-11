@@ -1,11 +1,11 @@
-const { readdirSync } = require('fs')
+const fs = require("fs");
 const tinify = require('tinify');
 
 /**
  * Get all subdirectories in the specified directory.
  */
 const getDirectories = source =>
-  readdirSync(source, { withFileTypes: true })
+  fs.readdirSync(source, { withFileTypes: true })
     .filter(dirent => dirent.isDirectory())
     .map(dirent => dirent.name);
 
@@ -13,7 +13,7 @@ const getDirectories = source =>
  * Get all files in the specified directory.
  */
 const getFiles = source =>
-  readdirSync(source, { withFileTypes: true })
+  fs.readdirSync(source, { withFileTypes: true })
     .filter(dirent => dirent.isFile())
     .map(dirent => dirent.name);
 
@@ -34,7 +34,7 @@ function tinifyResizeFile(source, options, destination) {
   const tinifySource = tinify.fromFile(source);
   const tinifyResized = tinifySource.resize(options);
   tinifyResized.toFile(destination, function (err) {
-    console.error(err.message);
+    console.error(err);
   });
 }
 
